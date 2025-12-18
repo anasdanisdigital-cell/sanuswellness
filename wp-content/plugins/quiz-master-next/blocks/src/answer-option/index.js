@@ -1,0 +1,2 @@
+import{registerBlockType}from'@wordpress/blocks';import Edit from'./edit';import metadata from'./block.json';import{answerOptionBlockIcon}from"../component/icon";registerBlockType(metadata.name,{icon:answerOptionBlockIcon,__experimentalLabel(attributes,{context}){const{content}=attributes;const customName=attributes?.metadata?.name;const hasContent=content?.length>0;if(context==='list-view'&&(customName||hasContent)){return customName||content;}},merge(attributes,attributesToMerge){return{content:(attributes.content||'')+
+(attributesToMerge.content||''),};},edit:Edit,});
