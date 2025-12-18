@@ -1,0 +1,9 @@
+var QSMFortune;(function($){jQuery(document).on("click","#model-wizard .qsm-theme-fortune",function(){if(1>jQuery("#model-wizard #pagination").val()){jQuery("#model-wizard #pagination").val(1);}
+if(1>jQuery("#model-wizard #timer_limit").val()){jQuery("#model-wizard #timer_limit").val(5);}
+jQuery("#model-wizard #enable_pagination_quiz-1").attr("checked",true);jQuery("#model-wizard #progress_bar-1").attr("checked",true);});function qsm_fortune_extends_object_after(targetF,originalF,parent){if(typeof parent=='undefined'){return;}
+for(var i in parent){if(parent[i]===originalF){parent[i]=function(){originalF.apply(this,arguments);return targetF.apply(this,arguments)}
+break;}}}
+QSMFortune={question_type_change:function(previous_question_val,questiontype){$('#answers .answer-label-div').hide();if(1==questiontype||10==questiontype){$('#answers .answer-label-div').show();}},addNewAnswer:function(answer,questionType=false){QSMFortune.question_type_change('',questionType);},answerFilter:function(ansData,$answer,answerType){var questiontype=$('#question_type').val();if('image'!=answerType&&(1==questiontype||10==questiontype)){let label=$answer.find('.answer-label').val().trim();ansData.push(label);}
+return ansData;}}
+if(typeof QSMQuestion!='undefined'){qsm_fortune_extends_object_after(QSMFortune.question_type_change,QSMQuestion.question_type_change,QSMQuestion);qsm_fortune_extends_object_after(QSMFortune.addNewAnswer,QSMQuestion.addNewAnswer,QSMQuestion);qsm_fortune_extends_object_after(QSMFortune.answerFilter,QSMQuestion.answerFilter,QSMQuestion);}
+jQuery(document).on('qsm_open_edit_popup',function(event,questionID,CurrentElement){var question=QSMQuestion.questions.get(questionID);QSMFortune.question_type_change('',question.get('type'));});jQuery(document).on('qsm_new_answer_template',function(event,ansTemp,answer,questionType){ansTemp.label='';if("undefined"!=typeof answer.label){ansTemp.label=answer.label;}else{answer.label='';}});}(jQuery));
